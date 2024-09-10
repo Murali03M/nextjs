@@ -9,7 +9,8 @@ const Page = async ({ params }: { params: { details: number } }) => {
     const getProductDetails = await fetchProductDetails(params.details);
     console.log(getProductDetails);
     
-  return (
+    return (
+      
       <div className='max-w-6xl mx-auto p-2'>
           <div className='p-6'>
               <div className='grid items-start grid-cols-1 lg:grid-cols-5 gap-12'>

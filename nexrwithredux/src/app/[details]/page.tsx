@@ -1,13 +1,24 @@
 
 
 import { fetchProductDetails } from '@/actions'
+import { auth } from '@/auth';
 import AddtoCard from '@/components/addto-card';
+import { redirect } from 'next/navigation';
 import React from 'react'
 
 const Page = async ({ params }: { params: { details: number } }) => {
     
     const getProductDetails = await fetchProductDetails(params.details);
     console.log(getProductDetails);
+
+
+  const getSession = await auth();
+
+
+  if (!getSession?.user)
+  {   redirect("/unauth-page")
+
+  }
     
     return (
       
@@ -25,10 +36,10 @@ const Page = async ({ params }: { params: { details: number } }) => {
                       </div>
                   </div>
                   <div className='lg:col-span-2 '>
-                      <h2 className='text-3xl font-bold text-gray-100'>{getProductDetails?.data.title}</h2>
-                      <p className='mt-5 text-gray-100 text-xl'>{getProductDetails?.data.price}</p>
-                      <p className='mt-5 text-gray-100 text-xl'>{getProductDetails?.data.description}</p>
-                       <AddtoCard />
+                      <h2 className='text-3xl font-bold '>{getProductDetails?.data.title}</h2>
+                      <p className='mt-5  text-xl'>{getProductDetails?.data.price}</p>
+                      <p className='mt-5  text-xl'>{getProductDetails?.data.description}</p>
+                        <AddtoCard productDetails={getProductDetails} />
                   </div>
               </div>
               

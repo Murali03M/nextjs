@@ -32,7 +32,7 @@ export async function fetchAllProtects() {
 }
 
 
-export async function fetchProductDetails(prodId) {
+export async function fetchProductDetails(prodId:any) {
 
 
     try {

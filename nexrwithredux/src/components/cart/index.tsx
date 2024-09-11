@@ -27,7 +27,7 @@ const Cart = () => {
   };
     
   useEffect(() => {
-    setTotalAmout(cart?.cartItems.reduce((acc,curr)=>acc+curr?.price,0))
+    setTotalAmout(cart?.cartItems.reduce((acc:any,curr:any)=>acc+curr?.price,0))
 },[cart?.cartItems])
 
 

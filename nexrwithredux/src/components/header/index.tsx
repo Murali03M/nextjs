@@ -21,17 +21,20 @@ export default function Header({getSession}:any) {
         <Link href={"/"} className="text-gray-900 text-lg font-semibold">
           Shopping cart
         </Link>
-      </div>
+          </div>
+          {
+              getSession?.user ?   <ul className="flex  items-center justify-between gap-5  mr-10">
+              <li className="text-lg font-semibold">
+                <Link href={"/"}>Products</Link>{" "}
+              </li>
+              <li  className="text-lg font-semibold">
+                {" "}
+                <Link href={"/cart"}>Cart</Link>
+              </li>
+            </ul> :null
+          }
 
-      <ul className="flex  items-center justify-between gap-5  mr-10">
-        <li className="text-lg font-semibold">
-          <Link href={"/"}>Products</Link>{" "}
-        </li>
-        <li  className="text-lg font-semibold">
-          {" "}
-          <Link href={"/cart"}>Cart</Link>
-        </li>
-      </ul>
+    
 
       <div className="flex space-x-3">
         <form action={getSession?.user ? handleOAuthSignOut:handleOAuthSignin}>

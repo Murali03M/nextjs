@@ -1,19 +1,23 @@
-import { auth } from "@/auth";
 import Cart from "@/components/cart";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+
 import { redirect } from "next/navigation";
 
-
 export default async function Page() {
-    
-  const getSession = await auth();
 
 
-  if (!getSession?.user)
-  {   redirect("/unauth-page")
 
-  }
+      const session =await getServerSession(authOptions);
+ if (!session) {
+        redirect("/api/auth/signin"); // Redirect to the login page
+      } 
 
-    return <div>
-        <Cart/>
+  return (
+    <div>
+      {session ? <Cart /> : <div>Please login to see the cart items</div>}
     </div>
+  );
 }
+
+

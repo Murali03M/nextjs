@@ -1,19 +1,32 @@
+"use client"
+
+import React, { Suspense } from 'react';
 import Loading from "@/app/loading";
-import { auth } from "@/auth";
+
 import ReduxProvider from "@/provider";
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
+import { User } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
 
+// Define the Session type
+export interface Session {
+    user: User ;
+}
 
+// Define types for props
+interface CommonLayoutProps {
+    children: React.ReactNode;
+}
 
-export default async function CommonLayout({ children }: any) {
-    
+export default  function CommonLayout({ children }: CommonLayoutProps) {
+   
 
-  const getSession = await auth();
- 
-
-    return <ReduxProvider getSession={getSession}>
-        <Suspense fallback={<Loading/>}>
-        {children}
-        </Suspense></ReduxProvider>
+    return (
+        <SessionProvider > 
+        <ReduxProvider >
+            <Suspense fallback={<Loading />}>
+                {children}
+            </Suspense>
+            </ReduxProvider>
+            </SessionProvider >
+    );
 }

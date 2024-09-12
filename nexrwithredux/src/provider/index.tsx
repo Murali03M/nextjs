@@ -1,13 +1,26 @@
-"use client"
+"use client";
+
+import { Provider } from 'react-redux';
+import React from 'react';
+import store from '@/store';
+import Header from '@/components/header';
 
 
-import { Provider } from 'react-redux'
 
-import store from '@/store'
-import Header from '@/components/header'
-
-export default function ReduxProvider({ children,getSession }:any) {
-    return <Provider store={store}>
-        <Header getSession={getSession} />
-        {children}</Provider>
+interface ReduxProviderProps {
+    children: React.ReactNode;
+ 
 }
+
+
+const ReduxProvider: React.FC<ReduxProviderProps> = ({ children  }) => {
+    return (
+        <Provider store={store}>
+         
+            {children}
+        </Provider>
+    );
+};
+
+export default ReduxProvider;
+

@@ -1,7 +1,7 @@
 
 
 import { fetchProductDetails } from '@/actions'
-import { auth } from '@/auth';
+
 import AddtoCard from '@/components/addto-card';
 import { redirect } from 'next/navigation';
 import React from 'react'
@@ -9,16 +9,7 @@ import React from 'react'
 const Page = async ({ params }: { params: { details: number } }) => {
     
     const getProductDetails = await fetchProductDetails(params.details);
-    console.log(getProductDetails);
-
-
-  const getSession = await auth();
-
-
-  if (!getSession?.user)
-  {   redirect("/unauth-page")
-
-  }
+  
     
     return (
       

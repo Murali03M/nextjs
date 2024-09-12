@@ -12,7 +12,13 @@ import { useRouter } from "next/navigation";
   
 
 interface ProductCardProps {
-    item: any;  
+    item: {
+        id: number;
+        description:string // Ensure id is a string
+        thumbnail: string;
+        title: string;
+        price: number;      
+    };  
 }
 
 
@@ -21,7 +27,7 @@ interface ProductCardProps {
 
 function ProductCard({ item }: ProductCardProps) {
     
-    console.log(item);
+
 
     const router = useRouter();
     

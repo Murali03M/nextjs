@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,23 +13,33 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "../ui/button";
+import { RootState } from "@/store";
+
+
+// Define a type for cart items if not already defined
+interface CartItem {
+  id: number;
+  thumbnail: string;
+  title: string;
+  price: number;
+}
 
 const Cart = () => {
-    const [totlaAmount, setTotalAmout] = useState(0);
-
 
   
-  const { cart } = useSelector((state: any) => state);
+  const [totalAmount, setTotalAmount] = useState<number>(0); // Corrected typo and type
+
+  const { cart } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));
   };
-    
-  useEffect(() => {
-    setTotalAmout(cart?.cartItems.reduce((acc:any,curr:any)=>acc+curr?.price,0))
-},[cart?.cartItems])
 
+  useEffect(() => {
+    const amount = cart.cartItems.reduce((acc: number, curr: CartItem) => acc + curr.price, 0);
+    setTotalAmount(amount);
+  }, [cart.cartItems]);
 
   return (
     <div className="bg-white py-4 text-black">
@@ -45,27 +55,24 @@ const Cart = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cart?.cartItems?.length > 0 ? (
-              cart.cartItems.map((item: any) => (
+            {cart.cartItems.length > 0 ? (
+              cart.cartItems.map((item: CartItem) => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <div className="py-5 px-4">
                       <div className="flex items-center gap-6 w-max">
                         <img
-                          src={item?.thumbnail}
-                          alt={item?.title}
+                          src={item.thumbnail}
+                          alt={item.title}
                           className="w-16 h-16 object-cover"
                         />
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{item?.title}</TableCell>
-                  <TableCell>${item?.price}</TableCell>
+                  <TableCell>{item.title}</TableCell>
+                  <TableCell>${item.price}</TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => handleRemove(item.id)}
-                    
-                    >
+                    <Button onClick={() => handleRemove(((item.id)))}>
                       Remove
                     </Button>
                   </TableCell>
@@ -78,14 +85,13 @@ const Cart = () => {
                 </TableCell>
               </TableRow>
             )}
-                  </TableBody>
-                  <TableFooter>
+          </TableBody>
+          <TableFooter>
             <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-                          <TableCell className="text-right">${totlaAmount}</TableCell>
-        </TableRow>
-      </TableFooter>
-
+              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell className="text-right">${totalAmount}</TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       </div>
     </div>

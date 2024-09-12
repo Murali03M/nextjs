@@ -3,12 +3,23 @@ import { createSlice } from '@reduxjs/toolkit'
 import { STATUS_CODES } from 'http';
 
 
-
-const initialState = {
-    cartItems:[]
+interface CartItem {
+    id: number;
+    title: string;
+    price: number;
+    thumbnail: string; // assuming it has a thumbnail field
 }
-
-
+  
+interface CartState {
+    cartItems: CartItem[];
+  }
+  
+  
+  
+  const initialState: CartState = {
+    cartItems: []
+  };
+  
 
 
 const cartSlice = createSlice({
@@ -17,7 +28,7 @@ const cartSlice = createSlice({
     reducers: {
         AdddtoCard(state, action) {
              
-            console.log(action.payload);
+   
             
             state.cartItems.push( action.payload )
               
@@ -28,7 +39,7 @@ const cartSlice = createSlice({
 
             copyItems = copyItems.filter((item) => item.id !== action.payload);
             state.cartItems = copyItems;
-             console.log(state.cartItems);
+       
              
         } 
     }

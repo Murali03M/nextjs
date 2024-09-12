@@ -1,7 +1,5 @@
 "use server"
 
-import { signIn, signOut } from "@/auth";
-
 
 
 
@@ -18,13 +16,15 @@ export async function fetchAllProtects() {
         const response = await fetchData.json();
         return {
             success: true,
-            data:response?.products
+            data: response?.products,
+            message:"Success"
         };
         
     } catch (error) {
         console.log(error);
         return ({
             success: false,
+            data: undefined,
             message: "error in the fetching"
         })
         
@@ -32,7 +32,7 @@ export async function fetchAllProtects() {
 }
 
 
-export async function fetchProductDetails(prodId:any) {
+export async function fetchProductDetails(prodId:number) {
 
 
     try {
@@ -44,13 +44,15 @@ export async function fetchProductDetails(prodId:any) {
         const response = await fetchData.json();
         return {
             success: true,
-            data:response
+            data: response,
+            message:"success"
         };
         
     } catch (error) {
         console.log(error);
         return ({
             success: false,
+            data:undefined,
             message: "error in the fetching"
         })
         
@@ -58,14 +60,4 @@ export async function fetchProductDetails(prodId:any) {
 
 }
 
-
-
-export async function loginAction() {
-   await signIn('github');
-}
-
-
-export async function logoutAction() {
-    await signOut();
-}
 

@@ -3,7 +3,6 @@
 import { fetchProductDetails } from '@/actions'
 
 import AddtoCard from '@/components/addto-card';
-import { redirect } from 'next/navigation';
 import React from 'react'
 
 const Page = async ({ params }: { params: { details: number } }) => {

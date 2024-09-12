@@ -1,6 +1,5 @@
 
 import { createSlice } from '@reduxjs/toolkit'
-import { STATUS_CODES } from 'http';
 
 
 interface CartItem {
